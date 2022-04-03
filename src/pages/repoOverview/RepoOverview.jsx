@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom"
+import SyncLoader from "react-spinners/SyncLoader";
+  
 import Layout from "../../components/layout/Layout";
 import Backdrop from "../../components/utility/Backdrop";
 import { useRepo } from "../../context/RepoContext";
@@ -7,39 +9,60 @@ import RepoCard from "./RepoCard";
 
 function RepoOverview() {
   const { username } = useParams();
-  const { user, repo_list, sort_by, fetchFirstRepoList, fetchNextRepoList } = useRepo();
+  const {
+    user,
+    repo_list,
+    fetchRepoList,
+    loading,
+    loadingList,
+    toggleLoading,
+    has_more_repo,
+    loadMoreList
+  } = useRepo();
 
-  // sort
+  // sort options
   const [sortBy, setSortBy] = useState("name");
   const selectSort = (key) => {
     setSortBy(key);
+    console.log(key);
     setHideBackdrop(true);
   }
-
-  // watch for changes (username, sortBy)
-  useEffect(() => {
-    // check state.user === username
-    if (user && (username).toLowerCase() === (user.login).toLowerCase()) {
-      // if (sortBy === sort_by) {
-        return;
-      // }
-      // else {
-      //   fetchFirstRepoList(username, 1, sortBy);
-      // }
-    }
-    // new user: make initial api call
-    fetchFirstRepoList(username, 1, sortBy);
-  }, [fetchFirstRepoList, username, user, sortBy]);
-
-
-
   // backdrop
   const [hideBackdrop, setHideBackdrop] = useState(true);
   const clickSort = () => {
     setHideBackdrop(false);
   }
 
+  // watch for changes
+  useEffect(() => {
+    fetchRepoList(username, sortBy)
+  }, [username, sortBy, fetchRepoList])
 
+  // infinite scroll
+  const observer = useRef();
+  const lastRepoElementRef = useCallback(node => {
+    if (loading || loadingList) return;
+
+    // disconnect current observer
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+    // create new observer to observe last repo element
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && has_more_repo) {
+        loadMoreList();
+      }
+    })
+    if (node) {
+      observer.current.observe(node)
+    }
+  }, [loading, loadingList, has_more_repo, loadMoreList]);
+
+
+  // loadImage state for img
+  useEffect(() => {
+    toggleLoading(true);
+  }, [toggleLoading])
 
   return (
     <>
@@ -49,6 +72,7 @@ function RepoOverview() {
           <div className="px-4 py-8 bg-gray-100 flex gap-4">
             <img className="rounded-md h-24 object-contain"
               src={user?.avatar_url} alt={username}
+              onLoad={() => toggleLoading(false)}
             />
             <div className="flex flex-col">
               <span className="text-xl font-bold text-dcard-bg-light">
@@ -84,18 +108,30 @@ function RepoOverview() {
             {/* list */}
             <ul className="flex flex-col divide-y divide-gray-300 border border-gray-300 rounded-md bg-white md:bg-gray-100">
               {repo_list.map((repo, index) => {
-                return (
-                  <li key={index}>
-                    <RepoCard repo={repo} />
-                  </li>
-                )
+                if (repo_list.length === index + 1) {
+                  return (
+                    <li key={index} ref={lastRepoElementRef}>
+                      <RepoCard repo={repo} />
+                    </li>
+                  )
+                } else {
+                  return (
+                    <li key={index}>
+                      <RepoCard repo={repo} />
+                    </li>
+                  )
+                }
               })}
             </ul>
+            {/* loading spinner */}
+            <div className="my-8 w-full text-center" hidden={!loadingList}>
+              <SyncLoader color="#006AA6" />
+            </div>
           </div>
           :
           // repo = 0
-          <div className="w-full mt-8 flex flex-col justify-center items-center">
-            <span className="text-xl text-gray-400 font-bold">
+          <div className="px-4 w-full mt-8 flex flex-col justify-center items-center">
+            <span className="text-lg text-gray-400 font-semibold">
               The user has not created any repositories yet...
             </span>
           </div>
@@ -128,12 +164,12 @@ function RepoOverview() {
                 </span>
                 <span className="ml-2">Name</span>
               </li>
-              <li className="p-4" key={"stars"} onClick={() => selectSort("stars")}>
+              {/* <li className="p-4" key={"stars"} onClick={() => selectSort("stars")}>
                 <span  className={sortBy === "stars" ? "visible" : "invisible"}>
                   <i className="fa-solid fa-check"></i>
                 </span>
                 <span className="ml-2">Stars</span>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>        
