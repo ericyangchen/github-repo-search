@@ -23,7 +23,7 @@ function Error() {
     <Layout hideAll={true}>
       <div className="h-screen flex flex-col items-center p-4 gap-4">
         {error && Object.keys(error).map((key, index) => {
-          return (<ErrorCard key={key} msg={key} status={error[key]} />)
+          return (<ErrorCard key={index} msg={key} status={error[key]} />)
         })}
       </div>
     </Layout>
