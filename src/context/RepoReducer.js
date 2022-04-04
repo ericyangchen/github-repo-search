@@ -7,6 +7,7 @@ export const ACTIONS = {
   NEW_SORTBY: 'NEW_SORTBY',
   NEW_USER: 'NEW_USER',
   ADD_REPOS: 'ADD_REPOS',
+  CLEAR_ERROR: 'CLEAR_ERROR',
 };
 
 export const reducer = (state, action) => {
@@ -24,7 +25,7 @@ export const reducer = (state, action) => {
     case ACTIONS.SET_ERROR:
       return {
         ...state,
-        error: { ...action.payload }
+        error: action.payload
       }
     case ACTIONS.ADD_REPO_LIST:
       return {
@@ -66,6 +67,11 @@ export const reducer = (state, action) => {
           ...state,
           repos: [...state.repos, action.payload],
         }
+      }
+    case ACTIONS.CLEAR_ERROR:
+      return {
+        ...state,
+        error: null,
       }
     default:
       return state
