@@ -42,25 +42,25 @@ React app 就會在 localhost:3000(default port)啟動！
 
 整個 Project 的 structure 大致上如下。總共有三個主要的 pages，分別是 Home, RepoOverview 以及 RepoDetail。
 
-![Structure Tree](https://i.imgur.com/0hnE5VV.png)
+![Structure Tree](https://i.imgur.com/0hnE5VV.png = 47x100)
 
 Home 為 Project 的首頁，內有 search bar 來輸入 username。
 
-![Home Page Mobile](https://i.imgur.com/BOqCYAE.png)
+![Home Page Mobile](https://i.imgur.com/BOqCYAE.png = 46x100)
 
-![Home Page Desktop](https://i.imgur.com/yfrKuqh.png)
+![Home Page Desktop](https://i.imgur.com/yfrKuqh.png = 100x57)
 
 repoOverview 是實作 repository 列表的頁面，列出 User 的基本資訊以及 Repositories。每個 Repository 內有 name, stargazers_count 等資訊。
 
-![Repo List Mobile](https://i.imgur.com/kg1nTkA.png)
+![Repo List Mobile](https://i.imgur.com/kg1nTkA.png = 46x100)
 
-![Repo List Desktop](https://i.imgur.com/1FFJfKh.png)
+![Repo List Desktop](https://i.imgur.com/1FFJfKh.png = 100x174)
 
 repoDetail 是實作單一 repository 的頁面，除了列出該 repository 的 name, description, stargazers_count, hyperlink 外，另外加入 repository 的檔案(content)。
 
-![Repo Detail Mobile](https://i.imgur.com/Na2UW2I.png)
+![Repo Detail Mobile](https://i.imgur.com/Na2UW2I.png = 46x100)
 
-![Repo Detail Desktop](https://i.imgur.com/yLbpMRA.png)
+![Repo Detail Desktop](https://i.imgur.com/yLbpMRA.png = 100x175)
 
 # Responsive Web Design
 
@@ -78,7 +78,7 @@ repoDetail 是實作單一 repository 的頁面，除了列出該 repository 的
 
 最後我選擇了 Intersection Observer 來實作。過程中我發現如果我一直往下 scroll，會不斷觸發 api call，在上一次 api call 還沒得到資料前，又發出同樣的 api call，產生不必要的浪費。解決的辦法是，設定 loading 狀態，先檢查 loading state，如果還在 loading 就直接 return，如此一來，順利的解決重複的 api call。
 
-![Infinite Scroll](https://i.imgur.com/FiHcgeq.png)
+![Infinite Scroll](https://i.imgur.com/FiHcgeq.png = 100x126)
 
 # GitHub API, React Context and Reducer
 
@@ -90,7 +90,7 @@ repoDetail 是實作單一 repository 的頁面，除了列出該 repository 的
 
 另外，在 repoOverview 頁裡，我增加了 sort 的功能，可以依照 name 或 last updated 來排序 repository list，令使用者更好的查找 repository。所以 **/repos/{username}/{repo}** 也多了 sort 的 param。
 
-![APIs](https://i.imgur.com/iKF0DBu.png)
+![APIs](https://i.imgur.com/iKF0DBu.png = 100x197)
 
 ## React Context and Reducer
 
