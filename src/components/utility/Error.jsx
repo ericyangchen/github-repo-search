@@ -13,7 +13,7 @@ function Error() {
       const timer = setTimeout(() => {
         clearError();
         navigate("/", { replace: true });
-      }, 3000);
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [error, clearError, navigate]);
