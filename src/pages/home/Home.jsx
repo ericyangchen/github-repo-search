@@ -16,7 +16,7 @@ function Home() {
 
   return (
     <Layout hideAll={true}>
-      <div className="container p-4">
+      <div className="p-4 max-w-5xl mx-auto">
         {/* Intro */}
         <div className="py-4 flex flex-col justify-center items-center gap-4 bg-white rounded text-black text-3xl font-bold"
         >
@@ -32,13 +32,13 @@ function Home() {
           </span>
         </div>
         {/* search bar */}
-        <div className="mt-8 w-full h-12 rounded-md bg-white flex items-center border border-gray-300">
-          <span className="pl-4 r-2 text-black"
+        <div className="mt-8 w-full h-12 rounded-md bg-white flex items-center border border-gray-700">
+          <span className="pl-4 text-gray-700"
             onClick={e => handleSearch(e)}
           >
             <i className="fa-solid fa-magnifying-glass" />
           </span>
-          <input className="px-2 w-full h-full rounded-md focus:outline-none bg-white text-black"
+          <input className="px-2 w-full h-full rounded-md focus:outline-none bg-white text-gray-700"
             type="text"
             value={searchInput}
             placeholder="Search Github Users"

@@ -15,13 +15,13 @@ function Search() {
   }
 
   return (
-    <div className="h-screen bg-gray-100 pt-4">
+    <div className="h-screen bg-white pt-4 w-full">
       {/* search bar */}
       <div className="mx-4 h-12 flex items-center justify-between gap-2">
         {/* search input */}
-        <div className="h-full flex-1 border border-gray-300 rounded-md flex items-center bg-white">
-          <i className="m-2 fa-solid fa-sm fa-magnifying-glass text-gray-400" />
-          <input className="h-full w-full rounded-md px-1"
+        <div className="h-full flex-1 border border-gray-700 rounded-md flex items-center bg-dcard-bg-dark">
+          <i className="m-2 fa-solid fa-sm fa-magnifying-glass text-white" />
+          <input className="h-full w-full rounded-md px-1 text-white bg-dcard-bg-dark outline-0"
             type="text"
             value={searchInput}
             placeholder="Search username"
@@ -32,7 +32,7 @@ function Search() {
           />
         </div>
         {/* cancel button */}
-        <div className="text-gray-400"
+        <div className="text-gray-700 font-bold"
           onClick={handleCancel}
         >
           Cancel

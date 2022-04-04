@@ -12,16 +12,17 @@ function RepoOverview() {
   const {
     user,
     repo_list,
+    sort_by,
     fetchRepoList,
     loading,
     loadingList,
-    toggleLoading,
     has_more_repo,
-    loadMoreList
+    loadMoreList,
+    // toggleLoading,
   } = useRepo();
 
   // sort options
-  const [sortBy, setSortBy] = useState("name");
+  const [sortBy, setSortBy] = useState(sort_by || "name");
   const selectSort = (key) => {
     setSortBy(key);
     console.log(key);
@@ -59,28 +60,29 @@ function RepoOverview() {
   }, [loading, loadingList, has_more_repo, loadMoreList]);
 
 
-  // loadImage state for img
-  useEffect(() => {
-    toggleLoading(true);
-  }, [toggleLoading])
-
   return (
     <>
       <Layout>
         {/* user info */}
         {user && 
-          <div className="px-4 py-8 bg-gray-100 flex gap-4">
-            <img className="rounded-md h-24 object-contain"
-              src={user?.avatar_url} alt={username}
-              onLoad={() => toggleLoading(false)}
-            />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold text-dcard-bg-light">
-                @{user?.login}
-              </span>
-              <span className="text-sm">
-                {user?.name}
-              </span>
+          <div className="py-8 bg-gray-100 border-gray-300">
+            <div className="px-4 flex gap-4 max-w-7xl mx-auto">
+              <img className="rounded-md h-24 object-contain border border-gray-300"
+                src={user?.avatar_url} alt={username}
+              />
+              <div className="flex flex-col gap-1">
+                <span className="text-xl font-bold text-black">
+                  {user?.name}
+                </span>
+                <a href={user?.html_url} target="_blank" rel="noreferrer noopener">
+                  <div className="text-sm flex items-center gap-1">
+                    <i className="fa-solid fa-link fa-sm"></i>
+                    <span>
+                      {user?.html_url}
+                    </span>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
         }
@@ -88,7 +90,7 @@ function RepoOverview() {
         {/* repo list */}
         {repo_list && repo_list.length > 0 ?
           // repo > 0
-          <div className="px-4">
+          <div className="px-4 pb-4 max-w-7xl mx-auto">
             {/* sorting option tabs */}
             <div className="my-2 w-full flex items-center justify-between">
               <div className="my-2 text-sm text-gray-500">
@@ -106,7 +108,8 @@ function RepoOverview() {
               </button>
             </div>
             {/* list */}
-            <ul className="flex flex-col divide-y divide-gray-300 border border-gray-300 rounded-md bg-white md:bg-gray-100">
+            <ul className="flex flex-col divide-y divide-gray-300 border border-gray-300 rounded-md bg-white 
+              md:grid md:grid-cols-2 md:gap-4 md:divide-y-0 md:border-0 lg:grid-cols-3 xl:grid-cols-4 ">
               {repo_list.map((repo, index) => {
                 if (repo_list.length === index + 1) {
                   return (
@@ -125,21 +128,21 @@ function RepoOverview() {
             </ul>
             {/* loading spinner */}
             <div className="my-8 w-full text-center" hidden={!loadingList}>
-              <SyncLoader color="#006AA6" />
+              <SyncLoader color="#006AA6" loading={loadingList} />
             </div>
           </div>
           :
           // repo = 0
-          <div className="px-4 w-full mt-8 flex flex-col justify-center items-center">
+          <div className="px-4 max-w-7xl mx-auto w-full mt-8 flex flex-col justify-center items-center">
             <span className="text-lg text-gray-400 font-semibold">
               The user has not created any repositories yet...
             </span>
           </div>
         }
-
+        
         {/* Backdrop & sort options */}
         <Backdrop hideBackdrop={hideBackdrop} setHideBackdrop={setHideBackdrop} />
-        <div className="absolute w-full top-1/3 left-0 z-20"
+        <div className="absolute w-full top-1/3 left-0 right-0 z-20 max-w-md mx-auto"
           hidden={hideBackdrop}
         >
           <div className="mx-4 bg-neutral-700 rounded-md opacity-100 border border-neutral-400 text-gray-100 text-sm font-semibold">
@@ -172,8 +175,7 @@ function RepoOverview() {
               </li> */}
             </ul>
           </div>
-        </div>        
-
+        </div>
       </Layout>
     </>
   )

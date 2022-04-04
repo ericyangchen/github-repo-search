@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import { RepoProvider } from './context/RepoContext';
 import Home from './pages/home/Home';
@@ -16,6 +16,7 @@ function App() {
             <Route path='/search' element={<Search />} />
             <Route path='/users/:username/repos' element={<RepoOverview />} />
             <Route path='/users/:username/repos/:repo' element={<RepoDetail />} />
+            <Route path='*' element={<Navigate to="/" replace/>} />
           </Routes>
         </Router>
       </RepoProvider>

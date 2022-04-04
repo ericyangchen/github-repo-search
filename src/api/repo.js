@@ -24,3 +24,6 @@ export const getRepoList = (username, sortBy, page) => {
 export const getRepoDetail = (username, repo) => {
   return axios.get(`${BASE_URL}/repos/${username}/${repo}`);
 }
+export const getRepoDetailContent = (username, repo) => {
+  return axios.get(`${BASE_URL}/repos/${username}/${repo}/contents`)
+}

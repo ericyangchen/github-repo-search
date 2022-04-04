@@ -50,9 +50,22 @@ export const reducer = (state, action) => {
         ...action.payload,
       }
     case ACTIONS.ADD_REPOS:
-      return {
-        ...state,
-        repos: [...state.repos, action.payload],
+      if (action.payload.content.length > 0) {
+        const files = [];
+        const dirs = [];
+        action.payload.content.forEach(item => {
+          if (item.type === "dir") dirs.push(item);
+          else files.push(item);
+        })
+        return {
+          ...state,
+          repos: [...state.repos, { ...action.payload, content: [...dirs, ...files] }],
+        }
+      } else {
+        return {
+          ...state,
+          repos: [...state.repos, action.payload],
+        }
       }
     default:
       return state

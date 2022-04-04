@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useCallback, useState } from 'react';
 import { reducer, ACTIONS } from './RepoReducer';
-import { getUser, getRepoList, getRepoDetail } from '../api/repo';
+import { getUser, getRepoList, getRepoDetail, getRepoDetailContent } from '../api/repo';
 
 const RepoContext = createContext();
 
@@ -129,15 +129,23 @@ export const RepoProvider = ({ children }) => {
 
   const fetchRepoDetail = useCallback(async (username, repo) => {
     toggleLoading(true);
-    let res = await getRepoDetail(username, repo);
-    if (res.status === 200) {
+    // let res = await getRepoDetail(username, repo);
+    const [resDetail, resContent] = await Promise.all([
+      getRepoDetail(username, repo),
+      getRepoDetailContent(username, repo)
+    ])
+    if (resDetail.status === 200 && resContent.status === 200) {
       dispatch({
         type: ACTIONS.ADD_REPOS,
-        payload: res.data,
+        payload: { ...resDetail.data, content: resContent.data }
+      })
+    } else {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: { "add-repos": resDetail.status, "add-repos-content": resContent.status }
       })
     }
     toggleLoading(false);
-    console.log("CONTEXT DETAIL");
   }, [toggleLoading]);
 
 

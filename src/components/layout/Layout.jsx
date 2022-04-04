@@ -1,4 +1,4 @@
-import DotLoader from "react-spinners/DotLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 import { useRepo } from '../../context/RepoContext';
 
 import Header from './Header';
@@ -8,15 +8,14 @@ import Header from './Header';
 function Layout({ children, hideAll }) {
   const { loading } = useRepo();
   return (
-    <div className='h-screen overflow-y-auto md:bg-dcard-bg-dark'>
+    <div className='h-screen overflow-y-auto'>
       {/* header */}
       <Header hideAll={hideAll || false} />
 
-      {/* hidden=loading */}
       {loading ? 
         <div className="h-full flex items-center justify-center">
           {/* display loading indicator */}
-          <DotLoader color="#006AA6" loading={loading} />
+          <BeatLoader color="#006AA6" loading={loading} />
         </div>
         :
         <div>
@@ -24,7 +23,6 @@ function Layout({ children, hideAll }) {
           {children}
         </div>
       }
-
 
       {/* footer */}
       {/* <Footer hideAll={loading || hideAll || false} /> */}
