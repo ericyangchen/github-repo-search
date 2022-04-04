@@ -6,7 +6,7 @@ export const getUser = (username) => {
   return axios.get(`${BASE_URL}/users/${username}`);
 }
 export const getRepoList = (username, sortBy, page) => {
-  // determine sortby
+  // convert sortby
   let sort = null;
   switch (sortBy) {
     case "name":

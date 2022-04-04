@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import { RepoProvider } from './context/RepoContext';
 import Home from './pages/home/Home';
-import Search from './pages/search/Search';
+import Search from './components/layout/Search';
 import RepoOverview from './pages/repoOverview/RepoOverview';
 import RepoDetail from './pages/repoDetail/RepoDetail';
 import Error from "./components/utility/Error";

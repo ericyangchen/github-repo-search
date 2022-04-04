@@ -7,6 +7,10 @@ function Home() {
   // auto scroll 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    return () => {
+      window.scrollTo(0, 0);
+    }
   }, [])
   const [searchInput, setSearchInput] = useState("");
 

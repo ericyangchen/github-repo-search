@@ -18,7 +18,6 @@ function RepoOverview() {
     loadingList,
     has_more_repo,
     loadMoreList,
-    // toggleLoading,
   } = useRepo();
 
   // sort options

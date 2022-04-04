@@ -4,8 +4,6 @@ import BeatLoader from "react-spinners/BeatLoader";
 import { useRepo } from '../../context/RepoContext';
 
 import Header from './Header';
-// import Footer from './Footer';
-
 
 function Layout({ children, hideAll }) {
   const { loading, error } = useRepo();
@@ -33,9 +31,6 @@ function Layout({ children, hideAll }) {
           {children}
         </div>
       }
-
-      {/* footer */}
-      {/* <Footer hideAll={loading || hideAll || false} /> */}
     </div>
   )
 }
