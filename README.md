@@ -19,6 +19,8 @@ Project Link:
 
 # Launch Project
 
+To view the project online, visit [https://dcard.xcoder.me](https://dcard.xcoder.me/)
+
 To start the project locally, type
 
 ```bash
