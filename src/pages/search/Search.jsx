@@ -17,7 +17,7 @@ function Search() {
   return (
     <div className="h-screen bg-white pt-4 w-full">
       {/* search bar */}
-      <div className="mx-4 h-12 flex items-center justify-between gap-2">
+      <div className="mx-4 h-12 flex items-center justify-between gap-2 max-w-2xl md:mx-auto">
         {/* search input */}
         <div className="h-full flex-1 border border-gray-700 rounded-md flex items-center bg-dcard-bg-dark">
           <i className="m-2 fa-solid fa-sm fa-magnifying-glass text-white" />
