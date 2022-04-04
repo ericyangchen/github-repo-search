@@ -103,6 +103,12 @@ export const RepoProvider = ({ children }) => {
                 repo_list: res.data
               }
             })
+            // check has more repo (to load)
+            const hasMoreRepo = res.data.length >= 10 ? true : false;
+            dispatch({
+              type: ACTIONS.SET_HAS_MORE_REPO,
+              payload: hasMoreRepo
+            })
           } else {
             handleError({ 'new_sortby': res.status })
           }
