@@ -6,7 +6,7 @@ function Header({ hideAll }) {
   const { repo } = useParams();
   const navigate = useNavigate();
   return (
-    <div className="sticky top-0 w-full h-14 bg-dcard-bg-light">
+    <div className="fixed top-0 w-full h-14 bg-dcard-bg-light">
       <div className="h-full mx-4 flex items-center justify-between max-w-7xl xl:mx-auto xl:px-4">
         {/* goback icon */}
         <div className="flex-1 md:flex-none cursor-pointer md:w-16"

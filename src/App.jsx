@@ -8,7 +8,7 @@ import RepoDetail from './pages/repoDetail/RepoDetail';
 
 function App() {
   return (
-    <>
+    <div className="h-screen">
       <RepoProvider>
         <Router>
           <Routes>
@@ -20,7 +20,7 @@ function App() {
           </Routes>
         </Router>
       </RepoProvider>
-    </>
+    </div>
   );
 }
 
