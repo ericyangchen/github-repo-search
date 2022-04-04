@@ -8,7 +8,7 @@ import Header from './Header';
 function Layout({ children, hideAll }) {
   const { loading } = useRepo();
   return (
-    <div className='h-screen overflow-y-auto'>
+    <div className='h-screen'>
       {/* header */}
       <Header hideAll={hideAll || false} />
 
