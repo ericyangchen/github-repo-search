@@ -5,6 +5,10 @@ import Layout from "../../components/layout/Layout";
 import { useRepo } from "../../context/RepoContext";
 
 function RepoDetail() {
+  // auto scroll 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
   const { username, repo } = useParams();
 
   const { repos, fetchRepoDetail } = useRepo();

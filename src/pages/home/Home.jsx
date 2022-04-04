@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Layout from '../../components/layout/Layout';
 
 function Home() {
+  // auto scroll 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
   const [searchInput, setSearchInput] = useState("");
 
   const navigate = useNavigate();
